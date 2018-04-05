@@ -6,8 +6,8 @@ import { FotoService } from './foto.service';
 
 @NgModule({
   imports: [CommonModule],
-  declarations: [FotoComponent, FiltroPorTitulo, FotoService],
-  exports: [FotoComponent, FiltroPorTitulo, FotoService]
-  //, providers: [FotoService] Nas versões anteriores, como o foto.service não tem nenhum tipo de decorator ele deveria ser registrado como um provider
+  declarations: [FotoComponent, FiltroPorTitulo],
+  exports: [FotoComponent, FiltroPorTitulo],
+  providers: [FotoService] // Como o foto.service não tem nenhum tipo de decorator ele deve ser registrado como um provider
 })
 export class FotoModule { }
