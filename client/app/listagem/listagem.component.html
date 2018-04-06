@@ -24,7 +24,9 @@
         <a [routerLink]="['/cadastro', foto._id]">
             <foto titulo="{{foto.titulo}}" url="{{foto.url}}"></foto>
         </a>
-        <button class="btn btn-danger btn-block" (click)="remover(foto);">Remover</button>
+        <!-- Note que "Ação" não é uma propriedade do nosso componente e sim o evento que foi emitido pelo botao, evento do tipo 'acao'-->
+        <botao nome="Remover" estilo="btn-danger btn-block" (acao)="remover(foto)" confirmacao="true"></botao>
+        <!-- <button class="btn btn-danger btn-block" (click)="remover(foto);">Remover</button> -->
     </painel>
 </div>
 <!-- fim row -->

@@ -22,12 +22,16 @@ export class FotoService {
     }
 
     // O TypeScript nos permite tipar o retorno - Retorna um Observable<Response>
-    cadastra(foto: FotoComponent): Observable<Response> {
+    cadastra(foto: FotoComponent): Observable<MensagemCadastro> {
         if (foto._id) {
-            return this.http.put(`${this.url}/${foto._id}`, JSON.stringify(foto), { headers: this.headers });
+            return this.http
+                .put(`${this.url}/${foto._id}`, JSON.stringify(foto), { headers: this.headers })
+                .map(() => new MensagemCadastro('Foto alterada com sucesso.', false)); // entre parenteses pois o => nao sabe se é um bloco ou um obj
         } else {
             // Retornamos a request http e delegamos o subscribe para quem está chamando
-            return this.http.post(this.url, JSON.stringify(foto), { headers: this.headers });
+            return this.http
+                .post(this.url, JSON.stringify(foto), { headers: this.headers })
+                .map(() => new MensagemCadastro('Foto incluída com sucesso.', true)); // entre parenteses pois o => nao sabe se é um bloco ou um obj
         }
     }
 
@@ -47,3 +51,40 @@ export class FotoService {
         return this.http.delete(`${this.url}/${foto._id}`);
     }
 }
+
+export class MensagemCadastro {
+    // ao indicar um modificador de acesso o TypeScript entende que precisa gerar esses atributos
+    // para essa classe
+    constructor(private _mensagem: string, private _inclusao: boolean) {
+        this._mensagem = _mensagem;
+        this._inclusao = _inclusao;
+    };
+
+    get mensagem(): string {
+        return this._mensagem;
+    }
+
+    get inclusao(): boolean {
+        return this._inclusao;
+    }
+};
+
+// Declaração explícita de classes
+// export class MensagemCadastro {
+//     // Typescript nos da os modificadores de acesso
+//     private _mensagem: string;
+//     private _inclusao: boolean;
+
+//     constructor(mensagem: string, inclusao: boolean) {
+//         this._mensagem = mensagem;
+//         this._inclusao = inclusao;
+//     };
+
+//     public getMensagem() {
+//         return this._mensagem;
+//     }
+
+//     public isInclusao() {
+//         return this._inclusao;
+//     }
+// }

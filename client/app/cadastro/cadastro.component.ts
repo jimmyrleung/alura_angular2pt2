@@ -45,10 +45,10 @@ export class CadastroComponent {
         console.log(this.foto);
 
         this.service.cadastra(this.foto)
-            .subscribe(() => {
-                console.log("Foto cadastrada com sucesso.");
+            .subscribe(res => {
+                console.log(res.mensagem);
                 this.foto = new FotoComponent();
-                this.router.navigate(['']);
+                if (!res.inclusao) this.router.navigate(['']);
             }, erro => console.log(erro));
     }
 }
