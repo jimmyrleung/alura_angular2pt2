@@ -1,0 +1,21 @@
+Instalamos o jQuery via npm e incluímos seu minified no idnex html, entretanto, ao chamar '$'
+um erro aparece (olhar painel.component.ts) pois estamos trabalhando com TypeScript e ele só
+entende js puro e bibliotecas que ele mesmo implementa.
+
+Arquivos/bibliotecas que não foram feitas pelo TypeScript são chamadas de "ambient" e são 
+consideradas declarações sem implementação. Para q uma declaração funcione (como a do jQuery)
+e o TypeScript passe a enxergar essa declaração e sua respectiva implementação podemos recorrer 
+a repositórios da web para baixar essas declarações da seguinte maneira:
+
+npm run 
+npm run typings search jquery // nos ajuda a encontrar 
+
+Para instalar podemos fazer:
+npm run typings install dt~jquery --global --save
+
+Se não funcionar podemos pegar o typings da propria node modules:
+node "./node_modules/typings/dist/bin" install dt~jquery --global --save
+
+As declarações ficam no arquivo typings.json
+Os arquivos que permitem que o TypeScript entenda essas bibliotecas que não
+foram implementadas por ele são do tipo t.ds (Type Definition File)
